@@ -1,17 +1,11 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 
-Given(/^I am on the (\w+) page$/, async (page) => {
-    await browser.url(`https://the-internet.herokuapp.com/${page}`);
-});
-
 When(/^I login with (\w+) and (.+)$/, async (username, password) => {
     await $('#username').setValue(username);
     await $('#password').setValue(password);
     await $('button[type="submit"]').click();
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect($('#flash')).toBeExisting();
-    await expect($('#flash')).toHaveTextContaining(message);
+When("Login to newegg home page", async () => {
+    await browser.url(`https://www.newegg.com/asus-rog-strix-b550-f-gam-wif/p/N82E16813119311`);
 });
-
