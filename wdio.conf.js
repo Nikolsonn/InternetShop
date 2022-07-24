@@ -157,7 +157,7 @@ exports.config = {
         // <string> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '',
         // <number> timeout for step definitions
-        timeout: 60000,
+        timeout: 240000, // TODO add flag for debug running
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
@@ -214,8 +214,20 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+
+        browser.addCommand("waitAndClick", async function () {
+            await this.waitForDisplayed()
+            await browser.pause(1000);
+            await this.click()
+        }, true)
+
+        browser.addCommand("waitAndPutValue", async function (value) {
+            await this.waitForDisplayed();
+            await this.setValue(value);
+            expect(this).toHaveValue(value, { ignoreCase: true })
+        }, true)
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name

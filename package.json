@@ -18,5 +18,9 @@
     },
     "scripts": {
         "wdio": "wdio run wdio.conf.js"
+    },
+    "dependencies": {
+        "mailslurp-client": "^15.12.3",
+        "yarn": "^1.22.19"
     }
 }
