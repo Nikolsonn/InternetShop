@@ -9,3 +9,14 @@ Quite simple, but feel free to ask questions about needed things for test. Only 
 2. create 2-3 test cases, which will include 
  * item(s) search
  * adding to cart
+
+To run tests locally: 
+1. Run yarn 
+2. Run yarn wdio
+
+or 
+Set up run configuration in your ide
+![img.png](img.png)
+
+API key you can use your own or use mine 27cd12f9d966bb1839225489c443e13f905129224c156d76f8263871071863da
+It will be disabled in one week

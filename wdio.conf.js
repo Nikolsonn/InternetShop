@@ -1,3 +1,4 @@
+const {WaitTime} = require("./src/support/lib/constants");
 exports.config = {
     //
     // ====================
@@ -21,7 +22,7 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './features/**/*.feature'
+        './src/features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,7 +51,6 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-    
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
@@ -111,7 +111,6 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['chromedriver'],
-    
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -139,11 +138,12 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./features/step-definitions/steps.js'],
+        require: ['./src/steps/*.js', './src/support/actions/*.js'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
-        requireModule: [],
+        // requireModule: ['./src/support/actions'],
+        requireModule: ['@babel/register'],
         // <boolean> invoke formatters without executing steps
         dryRun: false,
         // <boolean> abort the run on first failure
@@ -161,7 +161,6 @@ exports.config = {
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
-    
     //
     // =====
     // Hooks
@@ -217,8 +216,8 @@ exports.config = {
     before: function (capabilities, specs) {
 
         browser.addCommand("waitAndClick", async function () {
-            await this.waitForDisplayed()
-            await browser.pause(1000);
+            await this.waitForClickable({timeout: WaitTime.TenSeconds})
+            await browser.pause(WaitTime.TwoSeconds);
             await this.click()
         }, true)
 
@@ -294,7 +293,7 @@ exports.config = {
      */
     // afterFeature: function (uri, feature) {
     // },
-    
+
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name
