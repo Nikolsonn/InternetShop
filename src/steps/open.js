@@ -18,5 +18,5 @@ When("open today best deal", async () => {
 
 When("open item number {int} in today best deal tab", async (itemNumber) => {
     await $(companyLogoSelector).waitForDisplayed();
-    await $$(`div > div.item-info > a`)[itemNumber].waitAndClick();
+    await $$(`.item-cells-wrap .item-cell .item-title`)[itemNumber].waitAndClick();
 });

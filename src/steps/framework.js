@@ -14,17 +14,17 @@ When("prepare new random email", async function () {
 });
 
 When("wait for checkout page", async () => {
-    await $(`[id="totalItemCountId"]`).waitForDisplayed();
+    await $(`#totalItemCountId`).waitForDisplayed();
 });
 
 When("collect item name and price from page", async function () {
     await $(itemDollarsPricePartSelector).waitForDisplayed();
     const item = {
-        name: await $(`[class="product-title"]`).getText(),
+        name: await $(`.product-title`).getText(),
         price: await $(itemDollarsPricePartSelector).getText() + await $(itemCentsPricePartSelector).getText(),
         quantity: 1,
     }
-    console.log("item", item);
+
     if (!this.items){
         this.items = [];
     }

@@ -17,19 +17,15 @@ When("check that existing test user logged in", async () => {
 });
 
 When("check that error message appears", async () => {
-    await browser.$$(`[class="form-error-message"]`)[0].waitForDisplayed();
+    await browser.$$(`.form-error-message`)[0].waitForDisplayed();
 });
 
 When("check that shows {string} items to proceed", async (itemQnt) => {
     const proceedToCheckoutSelector = `button.btn.btn-undefined.btn-primary`;
     await $(proceedToCheckoutSelector).waitForDisplayed();
-    let expectedResult;
-    if (itemQnt === "1"){
-        expectedResult = `PROCEED TO CHECKOUT (${itemQnt} ITEM)`;
-    } else {
-        expectedResult = `PROCEED TO CHECKOUT (${itemQnt} ITEMS)`;
-    }
-    expect(await $(proceedToCheckoutSelector).getText()).toEqual(expectedResult)
+
+    const label = itemQnt === "1" ? "ITEM" : "ITEMS";
+    expect(await $(proceedToCheckoutSelector).getText()).toEqual(`PROCEED TO CHECKOUT (${itemQnt} ${label})`)
 });
 
 When("check total price", async function () {

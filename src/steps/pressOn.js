@@ -23,7 +23,7 @@ When("press on add to cart button", async () => {
     await $(addToCartBtnSelector).waitAndClick();
 });
 
-When("press on no thanks button, reject insurance", async () => {
+When("press on no thanks button to reject insurance", async () => {
     await $(noThanksBtnSelector).waitAndClick();
 });
 
